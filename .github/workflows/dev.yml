@@ -1,0 +1,52 @@
+name: Terraform
+
+on:
+  push:
+    branches:
+      - main
+      - joseph-terraformation
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./terraform
+
+    permissions:
+      contents: read
+      id-token: write   # REQUIRED for WIF
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT }}
+
+      - name: Verify auth
+        run: gcloud auth list
+
+      # - name: Setup Terraform
+      #   uses: hashicorp/setup-terraform@v3
+      #   with:
+      #     terraform_version: 1.6.6
+
+      # - name: Terraform Init
+      #   run: terraform init
+
+      # - name: Terraform Format
+      #   run: terraform fmt -check
+
+      # - name: Terraform Validate
+      #   run: terraform validate
+
+      # - name: Terraform Plan
+      #   run: terraform plan
