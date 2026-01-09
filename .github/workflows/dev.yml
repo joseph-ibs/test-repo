@@ -43,7 +43,7 @@ jobs:
 
     - name: Terraform Init
         run: |
-          terraform init \
+        terraform init \
             -backend-config="bucket=ibs-dev-483509-tf-states" \
             -backend-config="prefix=${{ env.TF_WORKSPACE }}"
         working-directory: ${{ env.ENV_FOLDER }}
