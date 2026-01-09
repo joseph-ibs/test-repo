@@ -31,6 +31,10 @@ jobs:
         with:
           terraform_version: 1.7.0
 
+
+      - name: Set GOOGLE_CREDENTIALS
+        run: echo "GOOGLE_CREDENTIALS=${{ secrets.GCP_CREDENTIALS }}" >> $GITHUB_ENV
+
       # 4️⃣ Determine environment folder and workspace
       - name: Set environment variables
         id: env
@@ -61,8 +65,6 @@ jobs:
       - name: Terraform Init
         run: terraform init
         working-directory: ${{ env.ENV_FOLDER }}
-        with:
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
 
       # 8️⃣ Terraform Plan
       - name: Terraform Plan
