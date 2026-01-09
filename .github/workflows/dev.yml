@@ -48,9 +48,9 @@ jobs:
           echo "Using environment folder: $ENV_FOLDER"
           echo "Terraform workspace: $TF_WORKSPACE"
 
-      # 5️⃣ Switch to the correct environment folder
-      - name: Change working directory to environment
-        run: cd ${{ env.ENV_FOLDER }}
+      # # 5️⃣ Switch to the correct environment folder
+      # - name: Change working directory to environment
+      #   run: cd ${{ env.ENV_FOLDER }}
 
       # 6️⃣ Select or create Terraform workspace
       - name: Select Terraform workspace
