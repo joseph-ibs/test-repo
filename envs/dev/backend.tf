@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket  = "tf-state-myorg"
-    prefix  = "dev/"
+    bucket  = "ibs-dev-483509-tf-states"
+    prefix  = "cloudrun/dev"
   }
 }
