@@ -28,20 +28,20 @@ jobs:
         terraform_version: 1.7.0
 
     - name: Set environment variables
-        id: env
-        run: |
-          if [ "${GITHUB_REF##*/}" == "main" ]; then
-            echo "ENV_FOLDER=envs/prod" >> $GITHUB_ENV
-            echo "TF_WORKSPACE=prod" >> $GITHUB_ENV
-          elif [ "${GITHUB_REF##*/}" == "develop" ]; then
-            echo "ENV_FOLDER=envs/dev" >> $GITHUB_ENV
-            echo "TF_WORKSPACE=dev" >> $GITHUB_ENV
-          else
-            echo "ENV_FOLDER=envs/dev" >> $GITHUB_ENV
-            echo "TF_WORKSPACE=dev" >> $GITHUB_ENV
-          fi
-          echo "Using environment folder: $ENV_FOLDER"
-          echo "Terraform workspace: $TF_WORKSPACE"
+      id: env
+      run: |
+        if [ "${GITHUB_REF##*/}" == "main" ]; then
+          echo "ENV_FOLDER=envs/prod" >> $GITHUB_ENV
+          echo "TF_WORKSPACE=prod" >> $GITHUB_ENV
+        elif [ "${GITHUB_REF##*/}" == "develop" ]; then
+          echo "ENV_FOLDER=envs/dev" >> $GITHUB_ENV
+          echo "TF_WORKSPACE=dev" >> $GITHUB_ENV
+        else
+          echo "ENV_FOLDER=envs/dev" >> $GITHUB_ENV
+          echo "TF_WORKSPACE=dev" >> $GITHUB_ENV
+        fi
+        echo "Using environment folder: $ENV_FOLDER"
+        echo "Terraform workspace: $TF_WORKSPACE"
 
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
