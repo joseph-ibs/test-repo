@@ -68,8 +68,6 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -out=tfplan
         working-directory: ${{ env.ENV_FOLDER }}
-        with:
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
 
 
       # 9️⃣ Terraform Apply (only for prod/main)
