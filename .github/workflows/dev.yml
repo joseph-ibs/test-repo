@@ -47,7 +47,7 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
-      working_directory: ./{{ env.ENV_FOLDER }}
+      working-directory: ./{{ env.ENV_FOLDER }}
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
