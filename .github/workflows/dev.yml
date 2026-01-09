@@ -61,8 +61,10 @@ jobs:
         GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve
+          # This condition now allows both main and dev branches to trigger an apply
+      if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') && github.event_name == 'push'
+      run: |
+        terraform apply -auto-approve -var-file="terraform.tfvars"
       working-directory: ${{ env.ENV_FOLDER }}
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
