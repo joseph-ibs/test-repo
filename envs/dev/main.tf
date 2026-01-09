@@ -6,8 +6,8 @@ provider "google" {
 module "cloud_run" {
   source = "../../modules/cloud-run"
 
-  project_id  = var.project_id
-  region      = var.region
+  project_id   = var.project_id
+  region       = var.region
   service_name = "sample-cloud-run-dev"
   image        = "us-docker.pkg.dev/cloudrun/container/hello"
 }
