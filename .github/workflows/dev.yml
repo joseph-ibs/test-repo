@@ -1,42 +1,33 @@
-name: Terraform CI/CD
+name: 'Terraform CI'
 
 on:
   push:
     branches:
-      - main
-      - dev
+    - main
   pull_request:
-    branches:
-      - main
-      - dev
 
 jobs:
   terraform:
+    name: 'Terraform'
     runs-on: ubuntu-latest
 
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
     steps:
-      # 1️⃣ Checkout the code
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v2
 
-      # 2️⃣ Authenticate to GCP
-      - name: Set up GCP credentials
-        uses: google-github-actions/setup-gcloud@v2
-        with:
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.7.0
 
-      # 3️⃣ Install Terraform
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.7.0
-
-
-      - name: Set GOOGLE_CREDENTIALS
-        run: echo "GOOGLE_CREDENTIALS=${{ secrets.GCP_CREDENTIALS }}" >> $GITHUB_ENV
-
-      # 4️⃣ Determine environment folder and workspace
-      - name: Set environment variables
+    - name: Set environment variables
         id: env
         run: |
           if [ "${GITHUB_REF##*/}" == "main" ]; then
@@ -52,27 +43,27 @@ jobs:
           echo "Using environment folder: $ENV_FOLDER"
           echo "Terraform workspace: $TF_WORKSPACE"
 
-      # # 5️⃣ Switch to the correct environment folder
-      # - name: Change working directory to environment
-      #   run: cd ${{ env.ENV_FOLDER }}
 
-      # 6️⃣ Select or create Terraform workspace
-      - name: Select Terraform workspace
-        run: |
-          terraform workspace select $TF_WORKSPACE || terraform workspace new $TF_WORKSPACE
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      run: terraform init
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
-      # 7️⃣ Initialize Terraform
-      - name: Terraform Init
-        run: terraform init
-        working-directory: ${{ env.ENV_FOLDER }}
+    # Checks that all Terraform configuration files adhere to a canonical format
+    - name: Terraform Format
+      run: terraform fmt -check
 
-      # 8️⃣ Terraform Plan
-      - name: Terraform Plan
-        run: terraform plan -out=tfplan
-        working-directory: ${{ env.ENV_FOLDER }}
+    # Generates an execution plan for Terraform
+    - name: Terraform Plan
+      run: terraform plan
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
-
-      # 9️⃣ Terraform Apply (only for prod/main)
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve tfplan
+      # On push to main, build or change infrastructure according to Terraform configuration files
+      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform apply -auto-approve
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
