@@ -1,6 +1,5 @@
 terraform {
   backend "gcs" {
-    bucket = "ibs-dev-483509-tf-states"
-    prefix = "cloudrun/dev"
+    # Leave this empty. We will provide values via CLI.
   }
 }

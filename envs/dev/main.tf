@@ -8,6 +8,6 @@ module "cloud_run" {
 
   project_id   = var.project_id
   region       = var.region
-  service_name = "sample-cloud-run-dev"
+  service_name = "sample-cloud-run-dev2"
   image        = "us-docker.pkg.dev/cloudrun/container/hello"
 }
