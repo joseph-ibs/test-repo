@@ -60,10 +60,12 @@ jobs:
       # 7️⃣ Initialize Terraform
       - name: Terraform Init
         run: terraform init
+        working-directory: ${{ env.ENV_FOLDER }}
 
       # 8️⃣ Terraform Plan
       - name: Terraform Plan
         run: terraform plan -out=tfplan
+        working-directory: ${{ env.ENV_FOLDER }}
 
       # 9️⃣ Terraform Apply (only for prod/main)
       - name: Terraform Apply
