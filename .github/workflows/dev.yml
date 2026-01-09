@@ -14,11 +14,6 @@ jobs:
   terraform:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        # Terraform folder is determined dynamically based on environment
-        working-directory: ./terraform
-
     steps:
       # 1️⃣ Checkout the code
       - name: Checkout repository
