@@ -15,6 +15,6 @@ module "cloud_run" {
 module "services" {
   source = "../../modules/services"
 
-  project_id   = var.project_id
+  project_id = var.project_id
 }
 
