@@ -1,5 +1,5 @@
 terraform {
   backend "gcs" {
-    bucket = " ibs-dev-483509-tf-states"
+    bucket = "ibs-dev-483509-tf-states"
   }
 }
