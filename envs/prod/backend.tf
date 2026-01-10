@@ -1,5 +1,5 @@
 terraform {
   backend "gcs" {
-    bucket = "unhcr-ibs-terraform-states"
+    bucket = " ibs-dev-483509-tf-states"
   }
 }
