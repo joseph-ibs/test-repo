@@ -29,3 +29,9 @@ module "services" {
   project_id = var.project_id
 }
 
+module "workflows" {
+  source     = "../../modules/workflows"
+  project_id = var.project_id
+  region     = var.region
+  sa_name    = "workflow-service-account"
+}
