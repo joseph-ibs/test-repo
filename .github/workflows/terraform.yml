@@ -44,8 +44,8 @@ jobs:
 
         else
           # Fallback for PRs or other branches
-          echo "ENV_FOLDER=envs/dev" >> $GITHUB_ENV
-          echo "TF_WORKSPACE=dev" >> $GITHUB_ENV
+          echo "ENV_FOLDER=envs/prod" >> $GITHUB_ENV
+          echo "TF_WORKSPACE=prod" >> $GITHUB_ENV
         fi
 
     - name: Debug environment variables
