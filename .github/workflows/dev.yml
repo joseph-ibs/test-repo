@@ -35,6 +35,8 @@ jobs:
         elif [ "${{ github.ref_name }}" == "dev" ]; then
           echo "ENV_FOLDER=envs/dev" >> $GITHUB_ENV
           echo "TF_WORKSPACE=dev" >> $GITHUB_ENV
+          echo "GOOGLE_CREDENTIALS=${{ secrets.GCP_CREDENTIALS }}" >> $GITHUB_ENV
+
         else
           # Fallback for PRs or other branches
           echo "ENV_FOLDER=envs/dev" >> $GITHUB_ENV
@@ -47,8 +49,8 @@ jobs:
             -backend-config="bucket=ibs-dev-483509-tf-states" \
             -backend-config="prefix=${{ env.TF_WORKSPACE }}"
       working-directory: ${{ env.ENV_FOLDER }}
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+      # env:
+      #   GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
     - name: Terraform Format
       run: terraform fmt -check
@@ -57,8 +59,8 @@ jobs:
     - name: Terraform Plan
       run: terraform plan
       working-directory: ${{ env.ENV_FOLDER }}
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+      # env:
+      #   GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
     - name: Terraform Apply
           # This condition now allows both main and dev branches to trigger an apply
@@ -66,5 +68,5 @@ jobs:
       run: |
         terraform apply -auto-approve -var-file="terraform.tfvars"
       working-directory: ${{ env.ENV_FOLDER }}
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+      # env:
+      #   GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
