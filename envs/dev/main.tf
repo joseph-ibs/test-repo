@@ -46,7 +46,7 @@ module "cloud_run_job" {
   source     = "../../modules/cloud-run-jobs"
   project_id = var.project_id
   region     = var.region
-  sa_name    = "cloud-run-invoker-service-account"
+  sa_name    = "cloud-run-service-account"
   job_name   = "python_job"
   schedule   = "0 * * * *"
 }
