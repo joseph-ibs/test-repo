@@ -11,3 +11,10 @@ module "cloud_run" {
   service_name = "sample-cloud-run-dev2"
   image        = "us-docker.pkg.dev/cloudrun/container/hello"
 }
+
+module "services" {
+  source = "../../modules/services"
+
+  project_id = var.project_id
+}
+
