@@ -45,9 +45,9 @@ jobs:
           echo "TF_WORKSPACE=dev" >> $GITHUB_ENV
         fi
 
-        echo "Using environment folder: $ENV_FOLDER"
-        echo "Terraform workspace: $TF_WORKSPACE"
-        echo "GCP_SECRET_NAME: $GCP_SECRET_NAME"
+        echo "Using environment folder: ${{ env.ENV_FOLDER }}"
+        echo "Terraform workspace: ${{ env.TF_WORKSPACE }}"
+        echo "GCP_SECRET_NAME: ${{ env.GCP_SECRET_NAME }}"
 
 
     - name: Terraform Init
