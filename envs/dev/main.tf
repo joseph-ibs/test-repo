@@ -47,7 +47,7 @@ module "cloud_run_job" {
   project_id = var.project_id
   region     = var.region
   sa_name    = "cloud-run-service-account"
-  job_name   = "python_job"
+  job_name   = "cloud-run-job"
   schedule   = "0 * * * *"
 }
 
