@@ -42,10 +42,16 @@ jobs:
           echo "TF_WORKSPACE=dev" >> $GITHUB_ENV
           echo "GCP_SECRET_NAME=GCP_CREDENTIALS_DEV" >> $GITHUB_ENV
 
-        else
-          # Fallback for PRs or other branches
+
+        elif "${{ github.event_name }}" == "pull_request"; then
           echo "ENV_FOLDER=envs/prod" >> $GITHUB_ENV
           echo "TF_WORKSPACE=prod" >> $GITHUB_ENV
+          echo "GCP_SECRET_NAME=GCP_CREDENTIALS_PROD" >> $GITHUB_ENV
+
+        else
+          # Fallback for PRs or other branches
+          echo "ENV_FOLDER=envs/dev" >> $GITHUB_ENV
+          echo "TF_WORKSPACE=dev" >> $GITHUB_ENV
         fi
 
     - name: Debug environment variables
