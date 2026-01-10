@@ -60,8 +60,8 @@ jobs:
     - name: Terraform Plan
       run: terraform plan
       working-directory: ${{ env.ENV_FOLDER }}
-      # env:
-      #   GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+      env:
+        GOOGLE_CREDENTIALS: ${{ env.GCP_SECRET_NAME == 'GCP_CREDENTIALS_PROD' && secrets.GCP_CREDENTIALS_PROD || secrets.GCP_CREDENTIALS_DEV }}
 
     - name: Terraform Apply
           # This condition now allows both main and dev branches to trigger an apply
@@ -69,5 +69,5 @@ jobs:
       run: |
         terraform apply -auto-approve -var-file="terraform.tfvars"
       working-directory: ${{ env.ENV_FOLDER }}
-      # env:
-      #   GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+      env:
+        GOOGLE_CREDENTIALS: ${{ env.GCP_SECRET_NAME == 'GCP_CREDENTIALS_PROD' && secrets.GCP_CREDENTIALS_PROD || secrets.GCP_CREDENTIALS_DEV }}
