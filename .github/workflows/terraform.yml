@@ -30,9 +30,10 @@ jobs:
       run: |
         # Use GITHUB_REF_NAME for simpler branch matching
         if [ "${{ github.ref_name }}" == "main" ]; then
-          echo "ENV_FOLDER=envs/dev" >> $GITHUB_ENV
+          echo "ENV_FOLDER=envs/prod" >> $GITHUB_ENV
           echo "TF_WORKSPACE=prod" >> $GITHUB_ENV
           echo "GCP_SECRET_NAME=GCP_CREDENTIALS_PROD" >> $GITHUB_ENV
+ 
         elif [ "${{ github.ref_name }}" == "dev" ]; then
           echo "ENV_FOLDER=envs/dev" >> $GITHUB_ENV
           echo "TF_WORKSPACE=dev" >> $GITHUB_ENV
@@ -43,6 +44,12 @@ jobs:
           echo "ENV_FOLDER=envs/dev" >> $GITHUB_ENV
           echo "TF_WORKSPACE=dev" >> $GITHUB_ENV
         fi
+
+    - name: Debug environment variables
+      run: |
+        echo "Using environment folder: $ENV_FOLDER"
+        echo "Terraform workspace: $TF_WORKSPACE"
+        echo "GCP_SECRET_NAME: $GCP_SECRET_NAME"
 
     - name: Terraform Init
       run: |
