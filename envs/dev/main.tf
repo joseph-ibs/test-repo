@@ -30,8 +30,14 @@ module "services" {
 }
 
 module "workflows" {
-  source     = "../../modules/workflows"
-  project_id = var.project_id
-  region     = var.region
-  sa_name    = "workflow-service-account"
+  source        = "../../modules/workflows"
+  project_id    = var.project_id
+  region        = var.region
+  sa_name       = "workflow-service-account"
+  workflow_name = "gcs_to_bq_workflow"
+  schedule      = "0 * * * *"
+}
+
+output "workflow_id" {
+  value = module.workflows.workflow_id
 }
