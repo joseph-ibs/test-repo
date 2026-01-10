@@ -52,5 +52,11 @@ module "cloud_run_job" {
 }
 
 output "cloud_run_job_id" {
-  value = module.workflows.workflow_id
+  value = module.cloud_run_job.cloud_run_job_id
+}
+
+module "alerts" {
+  source     = "../../modules/alerts"
+  project_id = var.project_id
+  ops_email  = var.ops_email
 }
