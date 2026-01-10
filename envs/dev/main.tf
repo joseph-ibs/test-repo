@@ -12,6 +12,15 @@ module "cloud_run" {
   image        = "us-docker.pkg.dev/cloudrun/container/hello"
 }
 
+module "cloud_run" {
+  source = "../../modules/cloud-run"
+
+  project_id   = var.project_id
+  region       = var.region
+  service_name = "sample-cloud-run-dev1"
+  image        = "us-docker.pkg.dev/cloudrun/container/hello"
+}
+
 module "services" {
   source = "../../modules/services"
 
