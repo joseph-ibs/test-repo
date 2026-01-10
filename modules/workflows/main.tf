@@ -1,6 +1,6 @@
 resource "google_workflows_workflow" "gcs_to_bq_workflow" {
   project         = var.project_id
-  name            = var.workflow_name
+  name            = "workflow"
   region          = var.region
   description     = "workflow to process gcs to bigquery"
   service_account = google_service_account.workflow_service_account.email
@@ -34,4 +34,6 @@ resource "google_workflows_workflow" "gcs_to_bq_workflow" {
   - returnOutput:
       return: $${wikiResult.body[1]}
 EOF
+
+  deletion_protection = false
 }
