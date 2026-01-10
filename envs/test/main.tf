@@ -3,18 +3,18 @@ provider "google" {
   region  = var.region
 }
 
-# module "cloud_run" {
-#   source = "../../modules/cloud-run"
+module "cloud_run" {
+  source       = "../../modules/cloud-run"
+  project_id   = var.project_id
+  region       = var.region
+  service_name = "sample-cloud-run-dev2"
+  image        = "us-docker.pkg.dev/cloudrun/container/hello"
+  sa_name      = "sample-cloud-run-dev2"
+}
 
-#   project_id   = var.project_id
-#   region       = var.region
-#   service_name = "sample-cloud-run-dev2"
-#   image        = "us-docker.pkg.dev/cloudrun/container/hello"
-# }
+module "services" {
+  source = "../../modules/services"
 
-# module "services" {
-#   source = "../../modules/services"
-
-#   project_id = var.project_id
-# }
+  project_id = var.project_id
+}
 
