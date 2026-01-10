@@ -12,7 +12,7 @@ module "cloud_run" {
   image        = "us-docker.pkg.dev/cloudrun/container/hello"
 }
 
-module "cloud_run" {
+module "cloud_run1" {
   source = "../../modules/cloud-run"
 
   project_id   = var.project_id
