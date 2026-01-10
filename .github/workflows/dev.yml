@@ -32,10 +32,11 @@ jobs:
         if [ "${{ github.ref_name }}" == "main" ]; then
           echo "ENV_FOLDER=envs/dev" >> $GITHUB_ENV
           echo "TF_WORKSPACE=prod" >> $GITHUB_ENV
+          echo "GCP_SECRET_NAME=GCP_CREDENTIALS_PROD" >> $GITHUB_ENV
         elif [ "${{ github.ref_name }}" == "dev" ]; then
           echo "ENV_FOLDER=envs/dev" >> $GITHUB_ENV
           echo "TF_WORKSPACE=dev" >> $GITHUB_ENV
-          echo "GCP_SECRET_NAME=GCP_CREDENTIALS" >> $GITHUB_ENV
+          echo "GCP_SECRET_NAME=GCP_CREDENTIALS_DEV" >> $GITHUB_ENV
 
         else
           # Fallback for PRs or other branches
@@ -49,9 +50,8 @@ jobs:
             -backend-config="bucket=ibs-dev-483509-tf-states" \
             -backend-config="prefix=${{ env.TF_WORKSPACE }}"
       working-directory: ${{ env.ENV_FOLDER }}
-      # env:
-      #   GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
-
+      env: 
+        GOOGLE_CREDENTIALS: ${{ env.GCP_SECRET_NAME == 'GCP_CREDENTIALS_PROD' && secrets.GCP_CREDENTIALS_PROD || secrets.GCP_CREDENTIALS_DEV }}
 
     - name: Terraform Format
       run: terraform fmt -check
