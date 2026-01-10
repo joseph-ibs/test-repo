@@ -35,7 +35,7 @@ jobs:
         elif [ "${{ github.ref_name }}" == "dev" ]; then
           echo "ENV_FOLDER=envs/dev" >> $GITHUB_ENV
           echo "TF_WORKSPACE=dev" >> $GITHUB_ENV
-          echo "GOOGLE_CREDENTIALS=${{ secrets.GCP_CREDENTIALS }}" >> $GITHUB_ENV
+          echo "GCP_SECRET_NAME=GCP_CREDENTIALS" >> $GITHUB_ENV
 
         else
           # Fallback for PRs or other branches
@@ -51,6 +51,7 @@ jobs:
       working-directory: ${{ env.ENV_FOLDER }}
       # env:
       #   GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+
 
     - name: Terraform Format
       run: terraform fmt -check
