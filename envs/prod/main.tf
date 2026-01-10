@@ -12,9 +12,9 @@ provider "google" {
 #   image        = "us-docker.pkg.dev/cloudrun/container/hello"
 # }
 
-module "services" {
-  source = "../../modules/services"
+# module "services" {
+#   source = "../../modules/services"
 
-  project_id = var.project_id
-}
+#   project_id = var.project_id
+# }
 
