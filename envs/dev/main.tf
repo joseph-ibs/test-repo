@@ -10,7 +10,7 @@ module "cloud_run" {
   region       = var.region
   service_name = "sample-cloud-run-dev2"
   image        = "us-docker.pkg.dev/cloudrun/container/hello"
-  sa_name      = "sample-cloud-run-dev2" 
+  sa_name      = "sample-cloud-run-dev2"
 }
 
 module "cloud_run1" {
@@ -20,7 +20,7 @@ module "cloud_run1" {
   region       = var.region
   service_name = "sample-cloud-run-dev1"
   image        = "us-docker.pkg.dev/cloudrun/container/hello"
-  sa_name      = "sample-cloud-run-dev1" 
+  sa_name      = "sample-cloud-run-dev1"
 }
 
 module "services" {
