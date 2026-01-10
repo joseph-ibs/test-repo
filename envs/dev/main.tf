@@ -41,3 +41,16 @@ module "workflows" {
 output "workflow_id" {
   value = module.workflows.workflow_id
 }
+
+module "cloud_run_job" {
+  source     = "../../modules/cloud-run-jobs"
+  project_id = var.project_id
+  region     = var.region
+  sa_name    = "cloud-run-invoker-service-account"
+  job_name   = "python_job"
+  schedule   = "0 * * * *"
+}
+
+output "cloud_run_job_id" {
+  value = module.workflows.workflow_id
+}
