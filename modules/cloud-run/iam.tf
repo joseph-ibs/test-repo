@@ -1,5 +1,5 @@
 resource "google_service_account" "scheduler_sa" {
-  account_id   = "scheduler-workflow-sa"
+  account_id   = "scheduler-workflow-sa2"
   display_name = "Cloud Scheduler Workflow Invoker"
 }
 
