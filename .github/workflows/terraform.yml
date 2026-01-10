@@ -32,7 +32,7 @@ jobs:
       id: env
       run: |
         # Use GITHUB_REF_NAME for simpler branch matching
-        if [ "${{ github.ref_name }}" == "main" ]; then
+        if [ "${{ github.ref_name }}" == "test" ]; then
           echo "ENV_FOLDER=envs/prod" >> $GITHUB_ENV
           echo "TF_WORKSPACE=prod" >> $GITHUB_ENV
           echo "GCP_SECRET_NAME=GCP_CREDENTIALS_PROD" >> $GITHUB_ENV
