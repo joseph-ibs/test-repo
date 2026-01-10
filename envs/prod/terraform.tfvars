@@ -1,4 +1,4 @@
-project_id = "ibs-prod-483907"
+project_id = "unhcr-ibs-dev"
 region     = "europe-west2"
 
 
